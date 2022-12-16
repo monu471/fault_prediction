@@ -18,12 +18,12 @@ class DataIngesation:
             logging.info("we are storing our dataframe into featute store ")
             #replacing na value with nan
 
-            df = df.replace(to_replace="na",value= np.NaN,inplace = True)
-
+            df.replace(to_replace="na",value= np.NaN,inplace = True)
+            
             # we want to save our dataframe into feature store path
 
             feature_store_dir = os.path.dirname(self.data_ingestation_config.feature_store_path)
-            #create dir if not exist
+            # #create dir if not exist
             os.makedirs(feature_store_dir,exist_ok=True)
             logging.info('we are saving the dataframe into feature store folder')
             df.to_csv(path_or_buf = self.data_ingestation_config.feature_store_path,index = False,header= True)
@@ -31,11 +31,11 @@ class DataIngesation:
             logging.info("split the data into train and test split")
 
             train_df,test_df = train_test_split(df,test_size=self.data_ingestation_config.test_size,random_state=42)
-            ### store this dataset into dataset directory
+            # ### store this dataset into dataset directory
 
 
             dataset_dir = os.path.dirname(self.data_ingestation_config.train_file_path)
-            #create dataset dir if not aviable
+            # #create dataset dir if not aviable
             os.makedirs(dataset_dir,exist_ok=True)
             logging.info("saving the train and test data ")
             
@@ -43,7 +43,7 @@ class DataIngesation:
 
             test_df.to_csv(path_or_buf = self.data_ingestation_config.test_file_path,index = False,header = True)    
         
-            #prepare artifact
+            # #prepare artifact
 
             data_ingestation_artifact = artifact_entity.dataingestion_artifact(
                 feature_store_path= self.data_ingestation_config.feature_store_path,
@@ -53,6 +53,6 @@ class DataIngesation:
         
             logging.info(f" data_ingestation_artifact :-{data_ingestation_artifact}")
             return data_ingestation_artifact    
-        
+            return df
         except Exception as e :
             raise SensorException(e,sys)
