@@ -1,6 +1,6 @@
 import os,sys
-from sensor.logger import logging
-from sensor.exception import SensorException
+from fault_prediction.sensor.logger import logging
+from fault_prediction.sensor.exception import SensorException
 from datetime import datetime
 FILE = "sensor.csv"
 Train_file = 'train.csv'
@@ -12,7 +12,7 @@ class Trainingconfig:
         except Exception as e :
             raise(e,sys)
 
-class dataingestion_config :
+class dataingestionconfig :
     def __init__(self,train_config):
         try :
             self.database = "aps"
@@ -22,5 +22,13 @@ class dataingestion_config :
             self.feature_store_path = os.path.join(self.dataingestation_dir,"feature_store",FILE )
             self.train_file_path = os.path.join(self.dataingestation_dir,"dataset",Train_file)
             self.test_file_path = os.path.join(self.dataingestation_dir,"dataset",Test_file)
+
+        
         except Exception as e :
-            raise SensorException(e,sys)
+           raise SensorException(e,sys)
+
+    def to_dict(self):
+        try:
+            return self.__dict__
+        except Exception as e:
+            raise SensorException(e,sys)         

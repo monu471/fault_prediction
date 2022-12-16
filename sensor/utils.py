@@ -1,7 +1,7 @@
 import os,sys
-from sensor.logger import logging
-from sensor.exception import SensorException
-from sensor.config import mongoclient
+from fault_prediction.sensor.logger import logging
+from fault_prediction.sensor.exception import SensorException
+from fault_prediction.sensor.config import mongoclient
 import pandas as pd
 
 
