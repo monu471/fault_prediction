@@ -12,3 +12,4 @@ class Evsvarible:
 
 evs = Evsvarible()
 mongoclient = pymongo.MongoClient(evs.mongo_url)
+Target_column = "class"

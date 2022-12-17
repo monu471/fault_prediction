@@ -32,3 +32,11 @@ class dataingestionconfig :
             return self.__dict__
         except Exception as e:
             raise SensorException(e,sys)         
+
+
+class datavalidationconfig :
+    def __init__(self,train_config):
+        self.datavalidation_dir = os.path.join(train_config.artifact_dir,"data_validation")
+        self.report_file_path = os.path.join(self.datavalidation_dir,"report.yaml")
+        self.missing_threshold = 0.2
+        self.base_file_path = r"E:\aps sensor\fault_prediction\sensor\aps_failure_training_set1.csv"
