@@ -62,3 +62,6 @@ class modeltraningconfig:
         self.expected_score = 0.7
         self.overfitting_threshold = 0.1
               
+class modelevaluationconfig:
+    def __init__(self,train_config):
+        self.change_threshold = 0.01

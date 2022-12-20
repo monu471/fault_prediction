@@ -12,6 +12,7 @@ from fault_prediction.sensor.components.data_validation import  DataValidation
 import yaml
 from fault_prediction.sensor.components.data_transformation import DataTransformation
 from fault_prediction.sensor.components.model_training import ModelTraining
+from fault_prediction.sensor.components.model_evaluetion import ModelEvaulation
 if __name__ == "__main__":
     try:
 
@@ -32,6 +33,10 @@ if __name__ == "__main__":
         model_training_config = config_entity.modeltraningconfig(train_config=train_config)
         model_training = ModelTraining(model_training_config=model_training_config,data_transformation_artifact=data_transformation_artifact)
         model_training_artifact = model_training.initiate_model_trainer()
+
+        model_eval_config = config_entity.modelevaluationconfig(train_config = train_config)
+        model_eval = ModelEvaulation(model_eval_config = model_eval_config,data_ingestion_artifact= data_ingestion_artifact,data_transformation_artifact=data_transformation_artifact,model_trainer_artifact=model_training_artifact)
+        model_evaluation_artifact = model_eval.initiate_model_evaluation()
     
     except Exception as e:
         raise SensorException(e,sys)
