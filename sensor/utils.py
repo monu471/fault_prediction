@@ -5,6 +5,9 @@ from fault_prediction.sensor.config import mongoclient
 import pandas as pd
 import pymongo
 import yaml
+import dill
+import numpy as np
+
 
 
 
@@ -45,6 +48,43 @@ def convert_to_float(df,exclude_column):
       raise SensorException(e,sys)    
 
 
+def save_object(file_path,object):
+   try:
+      logging.info("Enrtered the save object of utils")
+      os.makedirs(os.path.dirname(file_path),exist_ok=True)
+      with open(file_path,"wb") as file_obj:
+          dill.dump(object,file_obj)
+   except Exception as e:
+      raise SensorException(e,sys)
+
+
+def load_object(file_path):
+   try:
+      if not os.path.exists(file_path):
+         raise Exception (f" path {file_path} is not exsist")
+      with open(file_path,"rb") as file_obj:
+         return dill.load(file_obj)
+   except Exception as e:
+      raise SensorException(e,sys) 
+
+         
+
+def save_numpy_array_data(file_path,array):
+   try:
+      dir_path = os.path.dirname(file_path)
+      os.makedirs(dir_path,exist_ok=True)
+      with open(file_path,"wb") as file_obj:
+            return np.save(file_obj,array)
+   except Exception as e:
+      raise SensorException(e,sys)
 
 
 
+def load_numpy_array_data(file_path):
+
+   try:
+      with open(file_path,"rb") as file_obj :
+         return np.load(file_obj)
+   except Exception as e:
+      raise SensorException(e,sys)
+      

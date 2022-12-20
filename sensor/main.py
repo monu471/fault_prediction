@@ -10,6 +10,8 @@ from fault_prediction.sensor.components.data_ingestion import DataIngesation
 from fault_prediction.sensor.components import data_validation
 from fault_prediction.sensor.components.data_validation import  DataValidation
 import yaml
+from fault_prediction.sensor.components.data_transformation import DataTransformation
+from fault_prediction.sensor.components.model_training import ModelTraining
 if __name__ == "__main__":
     try:
 
@@ -23,7 +25,13 @@ if __name__ == "__main__":
         data_ingestion_artifact=dataIngestation.initiate_dataingesation()
         data_validation_config = config_entity.datavalidationconfig(train_config=train_config)
         data_validate = data_validation.DataValidation(data_validation_config=data_validation_config,data_ingestion_artifact=data_ingestion_artifact)
-        data_validate.initiate_data_validation()
+        data_validtion_artifact = data_validate.initiate_data_validation()
+        data_transformation_config = config_entity.datatransformationconfig(train_config=train_config)
+        data_transform = DataTransformation(data_ingestion_artifact=data_ingestion_artifact,data_transformation_config=data_transformation_config)
+        data_transformation_artifact = data_transform.initiate_data_transformation()
+        model_training_config = config_entity.modeltraningconfig(train_config=train_config)
+        model_training = ModelTraining(model_training_config=model_training_config,data_transformation_artifact=data_transformation_artifact)
+        model_training_artifact = model_training.initiate_model_trainer()
     
     except Exception as e:
         raise SensorException(e,sys)
