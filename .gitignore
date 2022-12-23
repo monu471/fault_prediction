@@ -2,7 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+artifact
+aps_failure_training_set1
+prediction
+saved_models
 # C extensions
 *.so
 
