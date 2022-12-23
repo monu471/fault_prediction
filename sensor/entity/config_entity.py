@@ -65,3 +65,15 @@ class modeltraningconfig:
 class modelevaluationconfig:
     def __init__(self,train_config):
         self.change_threshold = 0.01
+
+
+class ModelPusherConfig:
+
+    def __init__(self,train_config):
+        self.model_pusher_dir = os.path.join(train_config.artifact_dir , "model_pusher")
+        self.saved_model_dir = os.path.join("saved_models")
+        self.pusher_model_dir = os.path.join(self.model_pusher_dir,"saved_models")
+        self.pusher_model_path = os.path.join(self.pusher_model_dir,model_file)
+        self.pusher_transformer_path = os.path.join(self.pusher_model_dir,Transformer_object_file)
+        self.pusher_target_encoder_path = os.path.join(self.pusher_model_dir,Target_encoder_object_file)
+        
